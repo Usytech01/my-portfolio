@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { FiMenu, FiX } from 'react-icons/fi'; // Using react-icons
 import Link from 'next/link';
 
+// this is header section
+
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); //creates a state variable that create a memory to remember whether the menu is open or closed.
 
