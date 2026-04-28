@@ -6,9 +6,9 @@ import { BackgroundLines } from "../ui/background-lines";
 
 const Layout: React.FC = () => {
     return(
-        <section id="home" className="min-h-screen relative overflow-hidden pt-20">
-            <BackgroundLines className="flex items-center justify-center w-full flex-col px-4">
-                <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+        <section id="home" className="min-h-screen relative overflow-hidden flex flex-col justify-center py-20">
+            <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 min-h-screen">
+                <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
                     {/* Left Content */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
