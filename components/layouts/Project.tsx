@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 const Project: React.FC = () => {
   const projects = [
     { 
-      image: "/assets/p1.jpg", 
-      title: "Digital App UI", 
-      description: "A sleek mobile app UI concept with intuitive flows and bold visual design.",
-      tags: "Figma • React Native • Design",
+      image: "/assets/edulearn-preview.png", 
+      title: "Edu-Learn", 
+      description: "Empowering education through data-driven insights — a complete learning management platform connecting teachers, students, and administrators.",
+      tags: "React • LMS • Analytics",
       href: "https://edu-learn1.netlify.app/",
-      badge: "Web App"
+      badge: "Live",
+      featured: true
     },
     { 
       image: "/assets/myfix-preview.png", 
@@ -22,12 +23,13 @@ const Project: React.FC = () => {
       featured: true
     },
     { 
-      image: "/assets/p2.jpg", 
-      title: "Admin Dashboard", 
-      description: "Data-rich analytics dashboard with charts, tables, and responsive grid layouts.",
-      tags: "React • Recharts • TypeScript",
-      href: "https://github.com/Usytech01",
-      badge: "Web App"
+      image: "/assets/p1.jpg", 
+      title: "Digital App UI", 
+      description: "A sleek mobile application UI concept with intuitive user flows and modern visual design.",
+      tags: "Figma • React Native • Design",
+      href: "https://edu-learn1.netlify.app/",
+      badge: "UI/UX",
+      featured: false
     },
   ];
 
@@ -44,7 +46,6 @@ const Project: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
               Featured <span className="text-gradient">Projects</span>
             </h2>
-
           </motion.div>
           
           <motion.button 
@@ -54,17 +55,17 @@ const Project: React.FC = () => {
           >
             View All Work
           </motion.button>
-
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {projects.map((project, index) => (
             <motion.div
-              key={index}
+              key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              className="h-full"
             >
               <ProjectCard
                 image={project.image}
