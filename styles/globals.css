@@ -12,18 +12,17 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-
 :root {
   --background: #f8fafc;
   --foreground: #020617;
-  --primary: #3b82f6;
+  --primary: #2563eb;
 }
 
 .dark {
   --background: #020617;
   --foreground: #f8fafc;
+  --primary: #3b82f6;
 }
-
 
 body {
   background-color: var(--background);
@@ -64,12 +63,21 @@ body {
   background: #334155;
 }
 
-/* Glassmorphism Utilities */
+/* Glassmorphism Utilities — responsive to theme */
 .glass {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 .glass-dark {
@@ -79,9 +87,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Text Gradients */
+/* Text Gradients — vibrant in both light and dark mode */
 .text-gradient {
-  background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -102,4 +116,3 @@ section {
 html[data-magicui-theme-vt="active"]::view-transition-group(root) {
   animation-duration: var(--magicui-theme-toggle-vt-duration);
 }
-

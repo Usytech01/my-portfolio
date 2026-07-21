@@ -17,7 +17,7 @@ const Service: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             What I <span className="text-gradient">Do Best</span>
           </h2>
-          <p className="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-slate-800 dark:text-slate-300 max-w-2xl mx-auto text-lg leading-relaxed">
             I offer a comprehensive suite of digital services to help your business grow and stand out in the digital landscape.
           </p>
 
@@ -32,13 +32,13 @@ const Service: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10, backgroundColor: "var(--hover-bg)" }}
-              className='bg-white/90 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 p-8 rounded-3xl transition-all duration-300 group shadow-sm dark:shadow-none [--hover-bg:rgba(241,245,249,1)] dark:[--hover-bg:rgba(30,41,59,0.8)]'
+              className='bg-white/90 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 p-8 rounded-3xl transition-all duration-300 group shadow-md dark:shadow-none [--hover-bg:rgba(241,245,249,1)] dark:[--hover-bg:rgba(30,41,59,0.8)]'
             >
               <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-2xl text-blue-600 dark:text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
                 {icons[index] || <FiCode />}
               </div>
               <h3 className="text-xl font-bold text-foreground mb-4">{service}</h3>
-              <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-normal">
                 High-quality {service.toLowerCase()} solutions tailored to your specific business needs and user requirements.
               </p>
             </motion.div>

@@ -21,11 +21,11 @@ const Layout: React.FC = () => {
                         
                         <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-[1.1] mb-6">
                             Hi, I'm <span className="text-gradient">Usman</span> <br/>
-                            <span className="text-3xl md:text-5xl text-slate-500 dark:text-gray-400">Designer & Developer</span>
+                            <span className="text-3xl md:text-5xl text-slate-700 dark:text-slate-400 font-semibold">Designer & Developer</span>
                         </h1>
 
-                        <p className="text-slate-700 dark:text-slate-300 text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
-                            I craft modern digital experiences with <span className="text-foreground">clean aesthetics</span> and <span className="text-foreground">smooth interactions</span>. Specialist in React, Next.js, and Premium UI Design.
+                        <p className="text-slate-800 dark:text-slate-300 text-lg md:text-xl mb-10 max-w-lg leading-relaxed font-normal">
+                            I craft modern digital experiences with <span className="text-foreground font-semibold">clean aesthetics</span> and <span className="text-foreground font-semibold">smooth interactions</span>. Specialist in React, Next.js, and Premium UI Design.
                         </p>
 
 
@@ -75,10 +75,10 @@ const Layout: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 }}
-                            className="absolute -bottom-4 -left-4 glass p-4 rounded-2xl shadow-2xl z-20"
+                            className="absolute -bottom-4 -left-4 glass p-4 rounded-2xl shadow-2xl z-20 border border-slate-200/80 dark:border-white/10"
                         >
                             <p className="text-blue-600 dark:text-blue-400 font-bold text-2xl">3+</p>
-                            <p className="text-slate-600 dark:text-gray-400 text-xs uppercase tracking-widest font-semibold">Years Experience</p>
+                            <p className="text-slate-800 dark:text-slate-300 text-xs uppercase tracking-widest font-semibold">Years Experience</p>
                         </motion.div>
 
                     </motion.div>

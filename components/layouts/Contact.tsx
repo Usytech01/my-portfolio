@@ -117,57 +117,57 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white/50 dark:bg-white/5 p-8 rounded-3xl border border-slate-200 dark:border-white/5 backdrop-blur-sm"
+              className="bg-white/80 dark:bg-white/5 p-8 rounded-3xl border border-slate-200/80 dark:border-white/5 backdrop-blur-sm shadow-xl dark:shadow-none"
             >
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Name</label>
+                    <label className="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Name</label>
                     <input
                       type="text"
                       name="name"
                       required
                       value={form.name}
                       onChange={handleChange}
-                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:outline-none transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email</label>
+                    <label className="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Email</label>
                     <input
                       type="email"
                       name="email"
                       required
                       value={form.email}
                       onChange={handleChange}
-                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:outline-none transition-colors"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Subject</label>
+                  <label className="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Subject</label>
                   <input
                     type="text"
                     name="subject"
                     value={form.subject}
                     onChange={handleChange}
-                    className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:outline-none transition-colors"
                     placeholder="Project Inquiry"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Message</label>
+                  <label className="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Message</label>
                   <textarea
                     rows={4}
                     name="message"
                     required
                     value={form.message}
                     onChange={handleChange}
-                    className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:outline-none transition-colors resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>

@@ -66,10 +66,10 @@ const Header: React.FC = () => {
               <Link 
                 key={item.id} 
                 href={item.href} 
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   activeSection === item.id 
                     ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30" 
-                    : "text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:bg-blue-500/5 dark:hover:bg-white/10"
+                    : "text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-blue-500/10 dark:hover:bg-white/10"
                 }`}
               >
                 {item.label}
