@@ -48,8 +48,8 @@ export const About = () => {
               <div className="space-y-6 text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-8">
                 <p>
                   I am a UI/UX Designer and Full-stack Developer dedicated to building premium digital experiences. 
-                  I specialize in creating tools for people who value <span className="text-foreground font-medium">speed, beauty, and reliability</span>.
-                  I specialize in creating digital products that are as <span className="text-blue-600 dark:text-blue-400 font-medium">intuitive as they are powerful</span>.
+                  I create tools for people who value <span className="text-foreground font-medium">speed, beauty, and reliability</span> — 
+                  crafting digital products that are as <span className="text-blue-600 dark:text-blue-400 font-medium">intuitive as they are powerful</span>.
                 </p>
                 <button className="text-blue-600 dark:text-blue-400 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
                   See More.. <span className="text-lg">→</span>

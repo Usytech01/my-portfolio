@@ -4,6 +4,9 @@ export const navItems = ["Home", "About", "Project", "Service", "Contact"]
 export interface ProjectProps{
     image: string;
     title: string;
+    description?: string;
+    tags?: string;
+    href?: string;
 }
 
 export const services = [

@@ -1,7 +1,7 @@
+import React from 'react';
 import { motion } from "framer-motion";
 import Image from "next/image";
-import AnimatedPhotoBackground from "../common/AnimatedPhotoBackground";
-import OutlineButton from "../common/OutlineButton";
+import Link from "next/link";
 import { BackgroundLines } from "../ui/background-lines";
 
 const Layout: React.FC = () => {
@@ -30,13 +30,19 @@ const Layout: React.FC = () => {
 
 
                         <div className="flex flex-wrap items-center gap-6">
-                            <button className="bg-blue-500 hover:bg-blue-600 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-blue-500/20">
+                            <Link
+                                href="#projects"
+                                className="bg-blue-500 hover:bg-blue-600 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-blue-500/20"
+                            >
                                 View My Work
-                            </button>
-                            <button className="px-8 py-4 rounded-full text-foreground font-bold border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all duration-300">
+                            </Link>
+                            <a
+                                href="/assets/usman-cv.pdf"
+                                download
+                                className="px-8 py-4 rounded-full border-2 border-blue-500 text-blue-600 dark:text-blue-400 font-bold transition-all duration-300 hover:scale-105 hover:bg-blue-500 hover:text-white"
+                            >
                                 Download CV
-                            </button>
-
+                            </a>
                         </div>
                     </motion.div>
 

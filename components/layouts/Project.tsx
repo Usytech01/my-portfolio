@@ -1,13 +1,30 @@
 import React from 'react'
 import ProjectCard from '../common/ProjectCard'
-import PrimaryButton from '../common/PrimaryButton';
 import { motion } from 'framer-motion';
 
 const Project: React.FC = () => {
   const projects = [
-    { image: "/assets/p1.jpg", title: "Digital App UI" },
-    { image: "/assets/p3.png", title: "Social Media Web" },
-    { image: "/assets/p2.jpg", title: "Admin Dashboard" },
+    { 
+      image: "/assets/p1.jpg", 
+      title: "Digital App UI", 
+      description: "A sleek mobile app UI concept with intuitive flows and bold visual design.",
+      tags: "Figma • React Native • Design",
+      href: "https://edu-learn1.netlify.app/"
+    },
+    { 
+      image: "/assets/p3.png", 
+      title: "Social Media Web", 
+      description: "Full-featured social platform with real-time interactions and modern feed layout.",
+      tags: "Next.js • Tailwind • Supabase",
+      href: "https://my-fix1.vercel.app/"
+    },
+    { 
+      image: "/assets/p2.jpg", 
+      title: "Admin Dashboard", 
+      description: "Data-rich analytics dashboard with charts, tables, and responsive grid layouts.",
+      tags: "React • Recharts • TypeScript",
+      href: "https://github.com/Usytech01"
+    },
   ];
 
   return (
@@ -45,7 +62,13 @@ const Project: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <ProjectCard image={project.image} title={project.title} />
+              <ProjectCard
+                image={project.image}
+                title={project.title}
+                description={project.description}
+                tags={project.tags}
+                href={project.href}
+              />
             </motion.div>
           ))}
         </div>
