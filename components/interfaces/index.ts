@@ -7,6 +7,8 @@ export interface ProjectProps{
     description?: string;
     tags?: string;
     href?: string;
+    badge?: string;
+    featured?: boolean;
 }
 
 export const services = [

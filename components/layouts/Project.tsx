@@ -9,21 +9,25 @@ const Project: React.FC = () => {
       title: "Digital App UI", 
       description: "A sleek mobile app UI concept with intuitive flows and bold visual design.",
       tags: "Figma • React Native • Design",
-      href: "https://edu-learn1.netlify.app/"
+      href: "https://edu-learn1.netlify.app/",
+      badge: "Web App"
     },
     { 
-      image: "/assets/p3.png", 
-      title: "Social Media Web", 
-      description: "Full-featured social platform with real-time interactions and modern feed layout.",
-      tags: "Next.js • Tailwind • Supabase",
-      href: "https://my-fix1.vercel.app/"
+      image: "/assets/myfix-preview.png", 
+      title: "My_Fix", 
+      description: "Lagos home services marketplace — connecting residents with trusted local repair and maintenance professionals.",
+      tags: "Next.js • Vercel • TypeScript",
+      href: "https://my-fix1.vercel.app/",
+      badge: "Live",
+      featured: true
     },
     { 
       image: "/assets/p2.jpg", 
       title: "Admin Dashboard", 
       description: "Data-rich analytics dashboard with charts, tables, and responsive grid layouts.",
       tags: "React • Recharts • TypeScript",
-      href: "https://github.com/Usytech01"
+      href: "https://github.com/Usytech01",
+      badge: "Web App"
     },
   ];
 
@@ -68,6 +72,8 @@ const Project: React.FC = () => {
                 description={project.description}
                 tags={project.tags}
                 href={project.href}
+                badge={project.badge}
+                featured={project.featured}
               />
             </motion.div>
           ))}
