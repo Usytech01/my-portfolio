@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProjectCard from '../common/ProjectCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight, FiGrid, FiSliders } from 'react-icons/fi';
@@ -66,68 +66,73 @@ const categories = ["All", "Featured", "Web Apps", "Marketplace", "UI/UX"];
 const Project: React.FC = () => {
   const [showAllMode, setShowAllMode] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // 1 = right, -1 = left
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const featuredProjects = projects.filter(p => p.featured);
 
-  // Auto-play carousel timer when in carousel mode and not paused
+  // Sync scroll position to calculate active dot index
+  const handleScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, clientWidth, scrollWidth } = carouselRef.current;
+    
+    // Calculate index based on scroll offset
+    const cardWidth = 480 + 24; // width + gap
+    const newIndex = Math.min(
+      Math.round(scrollLeft / cardWidth),
+      featuredProjects.length - 1
+    );
+    setActiveIndex(newIndex);
+  };
+
+  // Smooth scroll left / right
+  const scroll = (direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+    const scrollAmount = 480 + 24; // Card width + gap
+    carouselRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
+  // Scroll to a specific card index
+  const scrollToIndex = (index: number) => {
+    if (!carouselRef.current) return;
+    const scrollAmount = (480 + 24) * index;
+    carouselRef.current.scrollTo({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+    setActiveIndex(index);
+  };
+
+  // Auto-scroll loop — pauses when hovered
   useEffect(() => {
     if (showAllMode || isPaused) return;
 
     const timer = setInterval(() => {
-      handleNext();
-    }, 5000);
+      if (!carouselRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      
+      // If reached near the end, loop back to start
+      if (scrollLeft + clientWidth >= scrollWidth - 50) {
+        carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        setActiveIndex(0);
+      } else {
+        scroll('right');
+      }
+    }, 4500);
 
     return () => clearInterval(timer);
-  }, [currentIndex, showAllMode, isPaused]);
-
-  const handleNext = () => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProjects.length);
-  };
-
-  const handlePrev = () => {
-    setDirection(-1);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? featuredProjects.length - 1 : prevIndex - 1
-    );
-  };
+  }, [showAllMode, isPaused]);
 
   const filteredProjects = projects.filter((project) => {
     if (activeCategory === "All") return true;
     if (activeCategory === "Featured") return project.featured;
     return project.category === activeCategory;
   });
-
-  // Slide animation variants
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.95,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        x: { type: "spring" as const, stiffness: 300, damping: 30 },
-        opacity: { duration: 0.4 },
-        scale: { duration: 0.4 },
-      },
-    },
-    exit: (dir: number) => ({
-      x: dir < 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        x: { type: "spring" as const, stiffness: 300, damping: 30 },
-        opacity: { duration: 0.3 },
-      },
-    }),
-  };
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
@@ -152,22 +157,22 @@ const Project: React.FC = () => {
             </h2>
           </motion.div>
 
-          {/* Action Bar: Controls + View All Toggle */}
+          {/* Action Bar: Navigation Controls + View All Toggle */}
           <div className="flex items-center gap-3">
-            {/* Carousel Navigation Arrows (Visible in Carousel Mode) */}
+            {/* Horizontal Scroll Arrows (Visible in Carousel Mode) */}
             {!showAllMode && (
               <div className="flex items-center gap-2 mr-2">
                 <button
-                  onClick={handlePrev}
-                  aria-label="Previous Project"
-                  className="p-3 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-foreground hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white hover:border-blue-500 transition-all duration-300 shadow-sm active:scale-95"
+                  onClick={() => scroll('left')}
+                  aria-label="Scroll Left"
+                  className="p-3 rounded-full border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md text-foreground hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white hover:border-blue-500 transition-all duration-300 shadow-sm active:scale-95"
                 >
                   <FiChevronLeft size={20} />
                 </button>
                 <button
-                  onClick={handleNext}
-                  aria-label="Next Project"
-                  className="p-3 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-foreground hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white hover:border-blue-500 transition-all duration-300 shadow-sm active:scale-95"
+                  onClick={() => scroll('right')}
+                  aria-label="Scroll Right"
+                  className="p-3 rounded-full border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md text-foreground hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white hover:border-blue-500 transition-all duration-300 shadow-sm active:scale-95"
                 >
                   <FiChevronRight size={20} />
                 </button>
@@ -197,96 +202,77 @@ const Project: React.FC = () => {
         </div>
 
         {/* ─────────────────────────────────────────────
-            MODE A: CAROUSEL VIEW WITH ANIMATION
+            MODE A: NATURAL HORIZONTAL SCROLL CAROUSEL
+            (Next card peeks out + stops on hover)
         ───────────────────────────────────────────── */}
         {!showAllMode ? (
           <div
-            className="relative"
+            className="relative group/carousel"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            {/* Desktop Grid Layout in Carousel Mode (Shows 3 Cards with Main Highlighted) */}
-            <div className="hidden lg:grid grid-cols-3 gap-8 items-stretch">
-              {featuredProjects.map((project, idx) => {
-                const isActive = idx === currentIndex;
-                return (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{
-                      opacity: 1,
-                      scale: isActive ? 1.02 : 0.98,
-                      y: isActive ? -6 : 0,
-                    }}
-                    transition={{ duration: 0.4 }}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`h-full transition-all duration-500 ${
-                      isActive ? "ring-2 ring-blue-500/50 rounded-3xl" : "opacity-85 hover:opacity-100"
-                    }`}
-                  >
-                    <ProjectCard
-                      image={project.image}
-                      title={project.title}
-                      description={project.description}
-                      tags={project.tags}
-                      href={project.href}
-                      badge={project.badge}
-                      featured={project.featured}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Mobile / Tablet Animated Slide Carousel */}
-            <div className="lg:hidden relative overflow-hidden rounded-3xl p-1">
-              <AnimatePresence initial={false} custom={direction} mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  className="w-full"
+            {/* Scrollable Container with Snap and Peek Cue */}
+            <div
+              ref={carouselRef}
+              onScroll={handleScroll}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory py-4 px-1 pb-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth"
+            >
+              {featuredProjects.map((project, idx) => (
+                <div
+                  key={project.id}
+                  className="w-[86vw] sm:w-[440px] lg:w-[480px] shrink-0 snap-start h-auto"
                 >
                   <ProjectCard
-                    image={featuredProjects[currentIndex].image}
-                    title={featuredProjects[currentIndex].title}
-                    description={featuredProjects[currentIndex].description}
-                    tags={featuredProjects[currentIndex].tags}
-                    href={featuredProjects[currentIndex].href}
-                    badge={featuredProjects[currentIndex].badge}
-                    featured={featuredProjects[currentIndex].featured}
+                    image={project.image}
+                    title={project.title}
+                    description={project.description}
+                    tags={project.tags}
+                    href={project.href}
+                    badge={project.badge}
+                    featured={project.featured}
                   />
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              ))}
+
+              {/* End Peek Spacer for clean right margin */}
+              <div className="w-12 shrink-0" />
             </div>
 
-            {/* Carousel Pagination Indicator Dots */}
-            <div className="flex justify-center items-center gap-3 mt-10">
-              {featuredProjects.map((proj, idx) => (
-                <button
-                  key={proj.id}
-                  onClick={() => {
-                    setDirection(idx > currentIndex ? 1 : -1);
-                    setCurrentIndex(idx);
-                  }}
-                  aria-label={`Go to slide ${idx + 1}`}
-                  className="relative p-2 focus:outline-none"
-                >
-                  {idx === currentIndex ? (
-                    <motion.div
-                      layoutId="activeDot"
-                      className="w-8 h-2.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-lg shadow-blue-500/30"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  ) : (
-                    <div className="w-2.5 h-2.5 bg-slate-300 dark:bg-white/20 hover:bg-blue-400 rounded-full transition-colors duration-300" />
-                  )}
-                </button>
-              ))}
+            {/* Hover Status Indicator (Signals auto-pause) */}
+            <div className="flex justify-between items-center mt-6">
+              {/* Pagination Pill Dots */}
+              <div className="flex items-center gap-2">
+                {featuredProjects.map((proj, idx) => (
+                  <button
+                    key={proj.id}
+                    onClick={() => scrollToIndex(idx)}
+                    aria-label={`Scroll to ${proj.title}`}
+                    className="p-1 focus:outline-none"
+                  >
+                    {idx === activeIndex ? (
+                      <motion.div
+                        layoutId="activeDot"
+                        className="w-8 h-2.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-md shadow-blue-500/30"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    ) : (
+                      <div className="w-2.5 h-2.5 bg-slate-300 dark:bg-white/20 hover:bg-blue-400 rounded-full transition-colors duration-300" />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Cue helper text */}
+              <div className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                {isPaused ? (
+                  <span className="inline-flex items-center gap-1.5 text-amber-500 dark:text-amber-400 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    Paused on hover
+                  </span>
+                ) : (
+                  <span className="hidden sm:inline">Flick horizontally or use arrows to navigate</span>
+                )}
+              </div>
             </div>
           </div>
         ) : (
