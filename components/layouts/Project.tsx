@@ -23,13 +23,13 @@ const Project: React.FC = () => {
       featured: true
     },
     { 
-      image: "/assets/p1.jpg", 
-      title: "Digital App UI", 
-      description: "A sleek mobile application UI concept with intuitive user flows and modern visual design.",
-      tags: "Figma • React Native • Design",
-      href: "https://edu-learn1.netlify.app/",
-      badge: "UI/UX",
-      featured: false
+      image: "/assets/dtech-preview.png", 
+      title: "D TECH Social", 
+      description: "Modern social network web platform featuring real-time feed posts, user messaging, multimedia sharing, and active friend connections.",
+      tags: "React • Tailwind • Real-time",
+      href: "https://d-tech-social.vercel.app/",
+      badge: "Live",
+      featured: true
     },
   ];
 

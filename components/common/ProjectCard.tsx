@@ -5,11 +5,13 @@ import Link from "next/link";
 import { FiExternalLink, FiArrowUpRight } from "react-icons/fi";
 
 /* ─────────────────────────────────────────
-   Featured card — used for highlighted projects (Edu-Learn, My_Fix)
+   Featured card — used for highlighted projects (Edu-Learn, My_Fix, D TECH Social)
 ───────────────────────────────────────── */
 const FeaturedCard: React.FC<ProjectProps> = ({ image, title, description, tags, href, badge }) => {
-  const isEduLearn = title.toLowerCase().includes("edu");
-  
+  const titleLower = title.toLowerCase();
+  const isEduLearn = titleLower.includes("edu");
+  const isDTech = titleLower.includes("d tech") || titleLower.includes("d-tech") || titleLower.includes("social");
+
   // Theme styling based on project
   const theme = isEduLearn
     ? {
@@ -26,6 +28,21 @@ const FeaturedCard: React.FC<ProjectProps> = ({ image, title, description, tags,
         displayUrl: "edu-learn1.netlify.app",
         divider: "from-purple-500/30 via-indigo-400/20 to-transparent",
       }
+    : isDTech
+    ? {
+        border: "border-cyan-500/20 hover:border-cyan-400/60 shadow-cyan-900/10",
+        glow: "group-hover:from-cyan-500/20 group-hover:via-sky-400/10 group-hover:to-blue-500/20",
+        badgeBg: "bg-cyan-500/20 border-cyan-400/40 text-cyan-300",
+        badgeDot: "bg-cyan-400",
+        titleHover: "group-hover:text-cyan-300",
+        accentText: "text-cyan-400",
+        tagDot: "bg-cyan-400",
+        subtitle: "Social Media & Connect Platform",
+        visitBadge: "bg-cyan-500/10 border-cyan-500/20 text-cyan-400",
+        linkText: "text-cyan-400 group-hover:text-sky-300",
+        displayUrl: "d-tech-social.vercel.app",
+        divider: "from-cyan-500/30 via-sky-400/20 to-transparent",
+      }
     : {
         border: "border-emerald-500/20 hover:border-emerald-400/60 shadow-emerald-900/10",
         glow: "group-hover:from-emerald-500/20 group-hover:via-amber-400/10 group-hover:to-emerald-500/20",
@@ -40,6 +57,28 @@ const FeaturedCard: React.FC<ProjectProps> = ({ image, title, description, tags,
         displayUrl: "my-fix1.vercel.app",
         divider: "from-emerald-500/30 via-amber-400/20 to-transparent",
       };
+
+  const renderTitle = () => {
+    if (isEduLearn) {
+      return (
+        <>
+          Edu-<span className={theme.accentText}>Learn</span>
+        </>
+      );
+    }
+    if (isDTech) {
+      return (
+        <>
+          D <span className={theme.accentText}>TECH</span> Social
+        </>
+      );
+    }
+    return (
+      <>
+        My<span className={theme.accentText}>_Fix</span>
+      </>
+    );
+  };
 
   return (
     <Link
@@ -92,15 +131,7 @@ const FeaturedCard: React.FC<ProjectProps> = ({ image, title, description, tags,
             <div className="flex items-start justify-between mb-3">
               <div>
                 <h3 className={`text-2xl font-bold text-white ${theme.titleHover} transition-colors duration-300`}>
-                  {isEduLearn ? (
-                    <>
-                      Edu-<span className={theme.accentText}>Learn</span>
-                    </>
-                  ) : (
-                    <>
-                      My<span className={theme.accentText}>_Fix</span>
-                    </>
-                  )}
+                  {renderTitle()}
                 </h3>
                 <p className="text-slate-400 text-[10px] tracking-[0.2em] uppercase font-semibold mt-0.5">
                   {theme.subtitle}
